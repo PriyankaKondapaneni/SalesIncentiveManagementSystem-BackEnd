@@ -9,19 +9,5 @@ import com.example.demo.repository.SalesRepository;
 
 @Service
 public class SalesService {
-	 @Autowired
-	    private SalesRepository salesRepo;
-	 public SalesPerson login(SalesPerson sp) {
-	    	SalesPerson existingSp = salesRepo.findByUserName(sp.getUserName());
-
-	        if(existingSp.getUserName().equals(sp.getUserName()) &&
-	                existingSp.getPassword().equals(sp.getPassword()) &&
-	                existingSp.getRole().equals(sp.getRole())) {
-	            existingSp.setPassword("");
-	            return existingSp;
-	        }
-
-	        return null;
-
-	    }
+	
 }

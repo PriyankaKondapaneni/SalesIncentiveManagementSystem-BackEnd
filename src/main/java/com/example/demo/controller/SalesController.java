@@ -15,13 +15,13 @@ import com.example.demo.service.SalesService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class SalesController {
 
-    @Autowired
-    private SalesService salesService;
-
-    @PostMapping("/login")
-    public SalesPerson login(@RequestBody SalesPerson sp) {
-
-        return salesService.login(sp);
-    }
+//    @Autowired
+//    private SalesService salesService;
+//
+//    @PostMapping("/login")
+//    public SalesPerson login(@RequestBody SalesPerson sp) {
+//
+//        return salesService.login(sp);
+//    }
 
 }
