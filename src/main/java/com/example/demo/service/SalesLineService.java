@@ -17,13 +17,22 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.SalesLine;
 import com.example.demo.model.SalesPerson;
+import com.example.demo.repository.ProductsRepository;
 import com.example.demo.repository.SalesLineRepository;
+import com.example.demo.repository.SalesPersonRepository;
 
 @Service
 public class SalesLineService {
 
 	@Autowired
 	SalesLineRepository salesLineRepository;
+	
+	@Autowired
+	SalesPersonRepository salesPersonRepository;
+	
+	@Autowired
+	ProductsRepository productsRepository;
+	
 	String line = "";
 	
 	public void saveSalesLineData(MultipartFile file) throws IOException, ParseException {
@@ -50,6 +59,34 @@ public class SalesLineService {
 //			System.out.println("Commission Price "+commissionPrice);
 			salesLine.setCommision(commissionPrice);
 			salesLineRepository.save(salesLine);
+			
+			int twoWheelerSold = salesPersonRepository.getTwoWheelerSold(data[1]);
+			int threeWheelerSold = salesPersonRepository.getThreeWheelerSold(data[1]);
+			int fourWheelerSold = salesPersonRepository.getFourWheelerSold(data[1]);
+			int commercialSold = salesPersonRepository.getCommercialSold(data[1]);
+			
+			String productType = productsRepository.getProductType(data[2]);
+			System.out.println(productType);
+			if(productType.equalsIgnoreCase("two wheeler")) {
+				salesPersonRepository.updateVehicleDetails(twoWheelerSold+1,threeWheelerSold, fourWheelerSold, commercialSold, data[1]);
+
+			} else if (productType.equalsIgnoreCase("three wheeler")) {
+				salesPersonRepository.updateVehicleDetails(twoWheelerSold,threeWheelerSold+1, fourWheelerSold, commercialSold, data[1]);
+
+			} else if (productType.equalsIgnoreCase("four wheeler")) {
+				salesPersonRepository.updateVehicleDetails(twoWheelerSold,threeWheelerSold, fourWheelerSold+1, commercialSold, data[1]);
+		
+			} else{
+				salesPersonRepository.updateVehicleDetails(twoWheelerSold,threeWheelerSold, fourWheelerSold, commercialSold+1, data[1]);
+
+			}
+			
+			
+			
+			float existingUptoDateCommission = salesPersonRepository.getUptoDateCommission(data[1]);	
+			float upatedCommission = existingUptoDateCommission + commissionPrice;	
+			salesPersonRepository.updateCommission(upatedCommission, data[1]);
+
 		}
 	}
 }
