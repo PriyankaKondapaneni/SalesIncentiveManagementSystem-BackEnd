@@ -9,16 +9,29 @@ public class Admin {
 	private String adminId;
 	private String name;
 	private String password;
+	private String role = "admin";
 	
 	
 	
-	public Admin(String adminId, String name, String password) {
+	
+	public Admin(String adminId, String name, String password, String role) {
+		super();
 		this.adminId = adminId;
 		this.name = name;
 		this.password = password;
+		this.role = role;
 	}
 	public Admin() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public String getAdminId() {
 		return adminId;
 	}

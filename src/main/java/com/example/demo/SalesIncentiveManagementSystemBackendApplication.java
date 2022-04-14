@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,14 @@ import com.example.demo.model.Admin;
 import com.example.demo.model.CommissionModel;
 import com.example.demo.model.CommissionRules;
 import com.example.demo.model.Products;
+import com.example.demo.model.SalesLine;
 import com.example.demo.model.SalesPerson;
 import com.example.demo.repository.AdminRepository;
 import com.example.demo.repository.CommissionModelRepository;
 import com.example.demo.repository.CommissionRuleRepository;
 import com.example.demo.repository.ProductsRepository;
 import com.example.demo.repository.SalesPersonRepository;
+import com.example.demo.repository.salesLineRepository;
 
 @SpringBootApplication
 public class SalesIncentiveManagementSystemBackendApplication implements CommandLineRunner{
@@ -35,6 +38,9 @@ public class SalesIncentiveManagementSystemBackendApplication implements Command
 	
 	@Autowired
 	CommissionModelRepository commissionModelRepository;
+	
+	@Autowired
+	salesLineRepository salesLineRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SalesIncentiveManagementSystemBackendApplication.class, args);
@@ -57,13 +63,14 @@ public class SalesIncentiveManagementSystemBackendApplication implements Command
 //				)
 //				);
 		
-//		SalesPerson first = new SalesPerson("SP1", "password", "kalyani", "hyderabad", 10,"SP2", 2, 2,3,4,5,14,100000.0f);
+//		SalesPerson first = new SalesPerson("SP1", "password", "kalyani", "sales", "hyderabad", 10,"SP2", 2, 2,3,4,5,14,100000.0f);
 //        salesPersonRepository.save(first);
-//        SalesPerson second = new SalesPerson("SP2", "password2", "christina", "banglore", 12, "SP3", 2, 2,3,4,6,15,120000.0f);
+//        SalesPerson second = new SalesPerson("SP2", "password2", "christina", "sales", "banglore", 12, "SP3", 2, 2,3,4,6,15,120000.0f);
 //        salesPersonRepository.save(second);
-//        SalesPerson third = new SalesPerson("SP3", "password3", "mythli", "mumbai", 14, "SP2", 2, 2,3,4,6,15,130000.0f);
+//        SalesPerson third = new SalesPerson("SP3", "password3", "mythli", "sales", "mumbai", 14, "SP2", 2, 2,3,4,6,15,130000.0f);
 //        salesPersonRepository.save(third);
-		
+//		  SalesPerson four = new SalesPerson("SP4", "password4", "sanju", "sales", "chennai", 15,"SP5", 2, 2,3,4,6,15,130000.0f);
+//	        salesPersonRepository.save(four);
 		
 //		commissionModelRepository.saveAll(List.of(
 //				new CommissionModel("2WR1", 3),
@@ -79,10 +86,21 @@ public class SalesIncentiveManagementSystemBackendApplication implements Command
 //				)
 //				);
 		
-		Admin firstA = new Admin("A1","Admin1","Admin@1");
-        adminRepository.save(firstA);
-        Admin secondA = new Admin("A2","Admin2","Admin@2");
-        adminRepository.save(secondA);
+//		Admin firstA = new Admin("A1","Admin1","Admin@1");
+//        adminRepository.save(firstA);
+//        Admin secondA = new Admin("A2","Admin2","Admin@2");
+//        adminRepository.save(secondA);
+	        
+	        
+//	        Date d1 = new Date(2022, 04, 13);
+//	        SalesLine sl1 =new SalesLine("SL1","P1", first, d1 ,10000.0f, "SP2", 3000.0f );
+//	        salesLineRepository.save(sl1);
+//	        Date d2 = new Date(2022, 04, 11);
+//	        SalesLine sl2 =new SalesLine("SL2","P2", second, d1 ,20000.0f, "SP4", 6000.0f );
+//	        salesLineRepository.save(sl2);
+//	        Date d3 = new Date(2022, 04, 10);
+//	        SalesLine sl3 =new SalesLine("SL3","P3", first, d1 ,25000.0f, "SP2", 8000.0f );
+//	       salesLineRepository.save(sl3);
 	}
 
 }

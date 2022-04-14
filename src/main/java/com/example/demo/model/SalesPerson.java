@@ -11,13 +11,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.NaturalId;
+
 @Entity
 @Table(name="directSalesPerson")
 public class SalesPerson {
+
 	@Id
 	private String salesPersonId;
 	private String password;
 	private String name;
+	private String role;
 	private String location;
 	private int quota;
 	private String reportingId;
@@ -33,16 +38,16 @@ public class SalesPerson {
 	private SalesLine salesLine;
 	
 	
-	public SalesPerson() {
 	
-	}
-	public SalesPerson(String salesPersonId, String password, String name, String location, int quota,
-			String reportingId, int level, int twoWheelerSold, int threeWheelerSold, int fourWheelerSold,
+	
+	public SalesPerson(String salesPersonId, String password, String name, String role, String location,
+			int quota, String reportingId, int level, int twoWheelerSold, int threeWheelerSold, int fourWheelerSold,
 			int commercialSold, int totalSales, float uptoDateCommission) {
-		
+		super();
 		this.salesPersonId = salesPersonId;
 		this.password = password;
 		this.name = name;
+		this.role = role;
 		this.location = location;
 		this.quota = quota;
 		this.reportingId = reportingId;
@@ -53,6 +58,23 @@ public class SalesPerson {
 		this.commercialSold = commercialSold;
 		this.totalSales = totalSales;
 		this.uptoDateCommission = uptoDateCommission;
+
+	}
+	public SalesPerson() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public SalesLine getSalesLine() {
+		return salesLine;
+	}
+	public void setSalesLine(SalesLine salesLine) {
+		this.salesLine = salesLine;
 	}
 	public String getSalesPersonId() {
 		return salesPersonId;
