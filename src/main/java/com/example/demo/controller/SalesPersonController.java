@@ -16,20 +16,18 @@ import com.example.demo.service.SalesPersonService;
 
 
 @RestController
-//@RequestMapping("/salesPerson")
-//@CrossOrigin(origins = "http://localhost:4200")
+
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/salesPerson")
 public class SalesPersonController {
 	
 	@Autowired
 	SalesPersonService salesPersonService;
 	
-	@PostMapping("/addUser")
+	@PostMapping("/addSalesPerson")
 	public SalesPerson saveUser(@RequestBody SalesPerson salesPerson ) {
-		
 		salesPersonService.addUser(salesPerson);
-		
-		return salesPerson;
-		
+		return salesPerson;	
 	}
 	
 	@DeleteMapping("/deleteSalesPerson/{salesPersonId}")
@@ -38,4 +36,5 @@ public class SalesPersonController {
 		this.salesPersonService.deleteSalesPersonById(salesPersonId);
 		return "deleted Successfully";
 	}
+	
 }

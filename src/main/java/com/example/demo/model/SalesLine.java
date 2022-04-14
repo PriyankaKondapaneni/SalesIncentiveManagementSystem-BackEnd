@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,25 +15,27 @@ public class SalesLine {
 	
 	private String productId;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="salesPersonId")
-	private SalesPerson salesPersonId;
-//	private String salesPersonId;
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name="salesPersonId")
+//	private SalesPerson salesPersonId;
+	private String salesPersonId;
 	private Date salesDate;
+	private float salesPrice;
+	private String reportingId;
+	private float commision;
+	
 	public String getSalesLineId() {
 		return salesLineId;
 	}
 	public void setSalesLineId(String salesLineId) {
 		this.salesLineId = salesLineId;
 	}
-	private float salesPrice;
-	private String reportingId;
-	private float commision;
+	
 	public SalesLine() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SalesLine(String salesLineId ,String productId, SalesPerson salesPersonId, Date salesDate, float salesPrice, String reportingId,
+	public SalesLine(String salesLineId ,String productId, String salesPersonId, Date salesDate, float salesPrice, String reportingId,
 			float commision) {
 		super();
 		this.salesLineId = salesLineId;
@@ -50,10 +52,10 @@ public class SalesLine {
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
-	public SalesPerson getSalesPersonId() {
+	public String getSalesPersonId() {
 		return salesPersonId;
 	}
-	public void setSalesPersonId(SalesPerson salesPersonId) {
+	public void setSalesPersonId(String salesPersonId) {
 		this.salesPersonId = salesPersonId;
 	}
 	public Date getSalesDate() {

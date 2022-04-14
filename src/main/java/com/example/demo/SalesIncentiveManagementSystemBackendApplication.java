@@ -1,6 +1,8 @@
 package com.example.demo;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +20,9 @@ import com.example.demo.repository.AdminRepository;
 import com.example.demo.repository.CommissionModelRepository;
 import com.example.demo.repository.CommissionRuleRepository;
 import com.example.demo.repository.ProductsRepository;
+import com.example.demo.repository.SalesLineRepository;
 import com.example.demo.repository.SalesPersonRepository;
-import com.example.demo.repository.salesLineRepository;
+import com.example.demo.repository.SalesLineRepository;
 
 @SpringBootApplication
 public class SalesIncentiveManagementSystemBackendApplication implements CommandLineRunner{
@@ -40,7 +43,7 @@ public class SalesIncentiveManagementSystemBackendApplication implements Command
 	CommissionModelRepository commissionModelRepository;
 	
 	@Autowired
-	salesLineRepository salesLineRepository;
+	SalesLineRepository salesLineRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(SalesIncentiveManagementSystemBackendApplication.class, args);
@@ -91,16 +94,21 @@ public class SalesIncentiveManagementSystemBackendApplication implements Command
 //        Admin secondA = new Admin("A2","Admin2","Admin@2");
 //        adminRepository.save(secondA);
 	        
-	        
-//	        Date d1 = new Date(2022, 04, 13);
-//	        SalesLine sl1 =new SalesLine("SL1","P1", first, d1 ,10000.0f, "SP2", 3000.0f );
+//			DateFormat formatter1 = new SimpleDateFormat("dd-MM-yyyy");  
+//			Date d1 = (Date) formatter1.parse("13-04-2022");
+//	        SalesLine sl1 =new SalesLine("SL1","P1", "SP1", d1 ,10000.0f, "SP2", 3000.0f );
 //	        salesLineRepository.save(sl1);
-//	        Date d2 = new Date(2022, 04, 11);
-//	        SalesLine sl2 =new SalesLine("SL2","P2", second, d1 ,20000.0f, "SP4", 6000.0f );
+//	        
+//	        DateFormat formatter2 = new SimpleDateFormat("dd-MM-yyyy");  
+//			Date d2 = (Date) formatter2.parse("11-04-2022");
+//	        SalesLine sl2 =new SalesLine("SL2","P2", "SP2", d1 ,20000.0f, "SP4", 6000.0f );
 //	        salesLineRepository.save(sl2);
-//	        Date d3 = new Date(2022, 04, 10);
-//	        SalesLine sl3 =new SalesLine("SL3","P3", first, d1 ,25000.0f, "SP2", 8000.0f );
+//	        
+//	        DateFormat formatter3 = new SimpleDateFormat("dd-MM-yyyy");  
+//			Date d3 = (Date) formatter3.parse("13-04-2022");
+//	        SalesLine sl3 =new SalesLine("SL3","P3", "SP3", d1 ,25000.0f, "SP2", 8000.0f );
 //	       salesLineRepository.save(sl3);
+	       
 	}
 
 }

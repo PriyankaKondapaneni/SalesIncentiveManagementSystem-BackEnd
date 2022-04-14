@@ -34,8 +34,8 @@ public class SalesPerson {
 	private int totalSales;
 	private float uptoDateCommission;
 	
-	@OneToOne(mappedBy = "salesPersonId")
-	private SalesLine salesLine;
+//	@OneToOne(mappedBy = "salesPersonId")
+//	private SalesLine salesLine;
 	
 	
 	
@@ -70,12 +70,12 @@ public class SalesPerson {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public SalesLine getSalesLine() {
-		return salesLine;
-	}
-	public void setSalesLine(SalesLine salesLine) {
-		this.salesLine = salesLine;
-	}
+//	public SalesLine getSalesLine() {
+//		return salesLine;
+//	}
+//	public void setSalesLine(SalesLine salesLine) {
+//		this.salesLine = salesLine;
+//	}
 	public String getSalesPersonId() {
 		return salesPersonId;
 	}
