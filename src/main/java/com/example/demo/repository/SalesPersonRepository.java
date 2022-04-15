@@ -49,6 +49,23 @@ public interface SalesPersonRepository extends CrudRepository<SalesPerson,Long> 
 		@Param("uptoDateCommission") float uptoDateCommission,
 		@Param("salesPersonId") String salesPersonId);
 	
+	@Query("select sp.uptoDateCommission from SalesPerson sp where sp.salesPersonId = :salesPersonId")
+	public float getUptodateCommission(@Param("salesPersonId") String salesPersonId);
+
+
+	@Query("select sp.totalSales from SalesPerson sp where sp.salesPersonId = :salesPersonId")
+	public int getTotalSales(@Param("salesPersonId") String salesPersonId);
+	
+	@Modifying(flushAutomatically = true)
+	@Transactional
+	@Query("update SalesPerson sp set sp.totalSales = :updatedTotalSales where sp.salesPersonId = :salesPersonId")
+	public void updateTotalSales(@Param("updatedTotalSales") int updatedTootalSales,
+			@Param("salesPersonId") String salesPersonId);
+	
+	@Query("select sp.level from SalesPerson sp  where sp.salesPersonId = :reportingId")
+	public int getLevel(@Param("reportingId") String reportingId);
 	
 	
+	@Query("select sp.reportingId from SalesPerson sp where sp.salesPersonId = :reportingId")
+	String getReporterId(@Param("reportingId") String reportingId);
 }
