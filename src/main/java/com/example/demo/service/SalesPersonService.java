@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import javax.transaction.Transactional;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,14 @@ public class SalesPersonService {
 		this.salesPersonRepository.save(salesPerson);
 	}
 
-	@Transactional
 	public void deleteSalesPersonById(String salesPersonId) {
-		this.salesPersonRepository.deleteBySalesPersonId(salesPersonId);
+		SalesPerson sp= this.salesPersonRepository.findBySalesPersonId(salesPersonId);
+		this.salesPersonRepository.delete(sp);
 		
+	}
+
+	public List<SalesPerson> findAll() {
+		return (List<SalesPerson>) salesPersonRepository.findAll();
 	}
 
 }

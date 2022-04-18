@@ -9,14 +9,18 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.AggregateCommission;
 import com.example.demo.model.SalesLine;
 import com.example.demo.model.SalesPerson;
+import com.example.demo.repository.AggregateCommissionRepository;
+import com.example.demo.repository.CommissionRuleRepository;
 import com.example.demo.repository.ProductsRepository;
 import com.example.demo.repository.SalesLineRepository;
 import com.example.demo.repository.SalesPersonRepository;
@@ -32,6 +36,12 @@ public class SalesLineService {
 	
 	@Autowired
 	ProductsRepository productsRepository;
+	
+	@Autowired
+	CommissionRuleRepository commissionRulesRepository;
+	
+	@Autowired
+	AggregateCommissionRepository aggregateCommissionRepository;
 	
 	String line = "";
 	
@@ -81,12 +91,67 @@ public class SalesLineService {
 
 			}
 			
-			
-			
+				
 			float existingUptoDateCommission = salesPersonRepository.getUptoDateCommission(data[1]);	
 			float upatedCommission = existingUptoDateCommission + commissionPrice;	
 			salesPersonRepository.updateCommission(upatedCommission, data[1]);
-
+			
+			int exisiting_totalSales = salesPersonRepository.getTotalSales(data[1]);
+			int updatedTotalSales = exisiting_totalSales + 1;
+			salesPersonRepository.updateTotalSales(updatedTotalSales, data[1]);
+			
+			
+			int salesPersonLevel = salesPersonRepository.getLevel(data[1]);
+			String res= data[3];
+			while(salesPersonLevel<3) {
+				String repIdComm = res;
+				int repLevel = salesPersonLevel +1;
+				float getCommissionPer;
+				if(repLevel == 1) {
+					getCommissionPer = commissionRulesRepository.getLevel1Commission();
+				}
+				else if(repLevel == 2) {
+					getCommissionPer = commissionRulesRepository.getLevel2Commission();
+				}
+				else {
+					getCommissionPer = commissionRulesRepository.getLevel3Commission();
+				}
+					
+				float repo_existing_uptodateCommission = salesPersonRepository.getUptodateCommission(repIdComm);
+				float repo_saleCommission = commissionPrice * getCommissionPer;
+				float repo_updatedCommission = repo_existing_uptodateCommission + repo_saleCommission;
+				salesPersonRepository.updateCommission(repo_updatedCommission, repIdComm);
+				
+				res = salesPersonRepository.getReporterId(res);
+				salesPersonLevel+=1;
+			}
+		
 		}
 	}
+
+	public Collection<SalesLine> getMonthlySales(String month) {
+		// TODO Auto-generated method stub
+	Collection<SalesLine> retrieved = 	(Collection<SalesLine>) salesLineRepository.getMonthlySales(month);
+	System.out.println(retrieved.size());
+	return retrieved;		
+	}
+	
+	public Collection<SalesLine> getMonthlySalesPerPerson(String month, String salesPersonId) {
+		// TODO Auto-generated method stub
+		Collection<SalesLine> retrieved = 	(Collection<SalesLine>) salesLineRepository.getMonthlySalesPerPerson(month,salesPersonId);
+		float totalMonthlyCommission = 0.0f;
+		for(SalesLine salesLine: retrieved)
+		{
+			totalMonthlyCommission+=salesLine.getCommision();
+		}
+		
+		AggregateCommission aggregateCommission = new AggregateCommission();
+		aggregateCommission.setMonth(month);
+		aggregateCommission.setSalesPersonId(salesPersonId);
+		aggregateCommission.setCommission(totalMonthlyCommission);
+		
+		aggregateCommissionRepository.save(aggregateCommission);
+		return retrieved;
+	}
+	
 }

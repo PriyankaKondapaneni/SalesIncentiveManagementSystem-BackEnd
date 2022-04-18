@@ -17,12 +17,14 @@ import org.hibernate.annotations.NaturalId;
 @Entity
 @Table(name="directSalesPerson")
 public class SalesPerson {
+	
+	
 
 	@Id
 	private String salesPersonId;
 	private String password;
 	private String name;
-	private String role;
+	private String role="sales";
 	private String location;
 	private int quota;
 	private String reportingId;
@@ -33,6 +35,8 @@ public class SalesPerson {
 	private int commercialSold;
 	private int totalSales;
 	private float uptoDateCommission;
+	
+	
 	
 //	@OneToOne(mappedBy = "salesPersonId")
 //	private SalesLine salesLine;
@@ -58,6 +62,16 @@ public class SalesPerson {
 		this.commercialSold = commercialSold;
 		this.totalSales = totalSales;
 		this.uptoDateCommission = uptoDateCommission;
+
+	}
+	public SalesPerson(String salesPersonId, String password, String name, String location,String reportingId,int quota) {
+		super();
+		this.salesPersonId = salesPersonId;
+		this.password = password;
+		this.quota=quota;
+		this.name = name;
+		this.location = location;
+		this.reportingId = reportingId;
 
 	}
 	public SalesPerson() {

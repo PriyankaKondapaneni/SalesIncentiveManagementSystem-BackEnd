@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +26,11 @@ public class SalesPersonController {
 	
 	@Autowired
 	SalesPersonService salesPersonService;
-	
+	@GetMapping("/users")
+	public List<SalesPerson> getAllUsers(){
+		return salesPersonService.findAll();
+	}
+
 	@PostMapping("/addSalesPerson")
 	public SalesPerson saveUser(@RequestBody SalesPerson salesPerson ) {
 		salesPersonService.addUser(salesPerson);
@@ -31,10 +38,8 @@ public class SalesPersonController {
 	}
 	
 	@DeleteMapping("/deleteSalesPerson/{salesPersonId}")
-	public String deleteEmployee(@PathVariable (value = "salesPersonId") String salesPersonId) {
+	public void deleteEmployee(@PathVariable String salesPersonId) {
 	
-		this.salesPersonService.deleteSalesPersonById(salesPersonId);
-		return "deleted Successfully";
-	}
+		this.salesPersonService.deleteSalesPersonById(salesPersonId);	}
 	
 }
